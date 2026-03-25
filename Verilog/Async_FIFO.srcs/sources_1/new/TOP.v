@@ -20,7 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module TOP #(parameter DEPTH = 16, DATA_WIDTH = 8) (
+module TOP #(
+    parameter DEPTH = 16,
+    parameter DATA_WIDTH = 8
+) (
     input wr_clk,
     input wr_rst_n,
     input rd_clk,
@@ -42,14 +45,14 @@ module TOP #(parameter DEPTH = 16, DATA_WIDTH = 8) (
     wire [PTR_WIDTH:0] g_wptr;
     wire [PTR_WIDTH:0] g_rptr;
 
-    sync #(PTR_WIDTH + 1) sync_wptr (
+    sync #(PTR_WIDTH + 1) sync_wptr_inst (
         .data_out(g_wptr_sync),
         .data_in(g_wptr),
         .clk(rd_clk),
         .rst_n(rd_rst_n)
     );
 
-    sync #(PTR_WIDTH + 1) sync_rptr (
+    sync #(PTR_WIDTH + 1) sync_rptr_inst (
         .data_out(g_rptr_sync),
         .data_in(g_rptr),
         .clk(wr_clk),
