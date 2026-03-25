@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module sync #(parameter SIZE = 3)(
+module sync #(parameter SIZE = 4)(
     output reg [SIZE-1:0] data_out,
     input [SIZE-1:0] data_in,
     input clk, rst_n
