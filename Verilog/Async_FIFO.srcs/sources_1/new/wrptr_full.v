@@ -33,7 +33,7 @@ module wrptr_full #(parameter PTR_WIDTH = 4)(
     reg wrap_around;
     wire wr_full;
     
-    assign b_wptr_next = b_wptr+(w_en & !full);
+    assign b_wptr_next = b_wptr+(wr_en & !full);
     assign g_wptr_next = (b_wptr_next >>1)^b_wptr_next;
   
     always@(posedge wr_clk or negedge wr_rst_n) begin
@@ -53,6 +53,6 @@ module wrptr_full #(parameter PTR_WIDTH = 4)(
       else        full <= wr_full;
     end
 
-  assign wr_full = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH], g_rptr_sync[PTR_WIDTH-1:0]});   
+    assign wr_full = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH], g_rptr_sync[PTR_WIDTH-1:0]});   
     
 endmodule
