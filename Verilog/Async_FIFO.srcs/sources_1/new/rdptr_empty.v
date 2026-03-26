@@ -20,18 +20,20 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module rdptr_empty #(parameter PTR_WIDTH = 4)(
+module rdptr_empty #(parameter PTR_WIDTH = 5)(
     input rd_clk,
     input rd_rst_n,
     input rd_en,
-    input [PTR_WIDTH:0] g_wptr_sync,
+    input [PTR_WIDTH-1:0] g_wptr_sync,
     output reg empty,
-    output reg [PTR_WIDTH:0] g_rptr,
-    output reg [PTR_WIDTH:0] b_rptr
+    output reg [PTR_WIDTH-1:0] g_rptr,
+    output reg [PTR_WIDTH-1:0] b_rptr
     );
 
-    wire [PTR_WIDTH:0] b_rptr_next;
-    wire [PTR_WIDTH:0] g_rptr_next;
+    localparam ADD_SIZE = PTR_WIDTH - 1;
+
+    wire [PTR_WIDTH-1:0] b_rptr_next;
+    wire [PTR_WIDTH-1:0] g_rptr_next;
     wire rd_empty;
 
     assign b_rptr_next = b_rptr + (rd_en && !empty);

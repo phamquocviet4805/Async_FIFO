@@ -36,23 +36,23 @@ module TOP #(
     output empty
     );
 
-    localparam PTR_WIDTH = $clog2(DEPTH);
+    localparam PTR_WIDTH = $clog2(DEPTH) + 1;
 
-    wire [PTR_WIDTH:0] g_wptr_sync;
-    wire [PTR_WIDTH:0] g_rptr_sync;
-    wire [PTR_WIDTH:0] b_wptr;
-    wire [PTR_WIDTH:0] b_rptr;
-    wire [PTR_WIDTH:0] g_wptr;
-    wire [PTR_WIDTH:0] g_rptr;
+    wire [PTR_WIDTH-1:0] g_wptr_sync;
+    wire [PTR_WIDTH-1:0] g_rptr_sync;
+    wire [PTR_WIDTH-1:0] b_wptr;
+    wire [PTR_WIDTH-1:0] b_rptr;
+    wire [PTR_WIDTH-1:0] g_wptr;
+    wire [PTR_WIDTH-1:0] g_rptr;
 
-    sync #(PTR_WIDTH + 1) sync_wptr_inst (
+    sync #(PTR_WIDTH) sync_wptr_inst (
         .data_out(g_wptr_sync),
         .data_in(g_wptr),
         .clk(rd_clk),
         .rst_n(rd_rst_n)
     );
 
-    sync #(PTR_WIDTH + 1) sync_rptr_inst (
+    sync #(PTR_WIDTH) sync_rptr_inst (
         .data_out(g_rptr_sync),
         .data_in(g_rptr),
         .clk(wr_clk),

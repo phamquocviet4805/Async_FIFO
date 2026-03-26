@@ -10,5 +10,3 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Github/Async_FIFO/Verilog/Async_
 INFO: [VRFC 10-311] analyzing module wrptr_full
 INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Github/Async_FIFO/Verilog/Async_FIFO.srcs/sim_1/new/Async_FIFO_tb.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module Async_FIFO_tb
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Github/Async_FIFO/Verilog/Async_FIFO.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl

@@ -20,22 +20,20 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module sync #(parameter SIZE = 4)(
+module sync #(parameter SIZE = 5)(
     output reg [SIZE-1:0] data_out,
     input [SIZE-1:0] data_in,
     input clk,
     input rst_n
     );
 
-    (* ASYNC_REG = "TRUE" *) reg [SIZE-1:0] ff_1;
+    reg [SIZE-1:0] ff_1;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            ff_1 <= 0;
-            data_out <= 0;
+            {data_out, ff_1} <= 0; 
         end else begin
-            ff_1 <= data_in;
-            data_out <= ff_1;
+            {data_out, ff_1} <= {ff_1, data_in}; 
         end
     end
 

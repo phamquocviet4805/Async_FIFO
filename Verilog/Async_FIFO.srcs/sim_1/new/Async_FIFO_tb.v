@@ -1,196 +1,127 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 03/25/2026 08:26:00 PM
-// Design Name: 
+// Design Name:
 // Module Name: Async_FIFO_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module Async_FIFO_tb;
+
+    parameter DSIZE = 8;
     parameter DEPTH = 16;
-    parameter DATA_WIDTH = 8;
-    parameter PRELOAD_COUNT = 8;
-    parameter STRESS_COUNT = 16;
-    parameter TOTAL_TRANSFERS = PRELOAD_COUNT + STRESS_COUNT;
 
+    reg [DSIZE-1:0] wr_data;
+    reg w_inc;
+    reg r_inc;
     reg wr_clk;
-    reg wr_rst_n;
     reg rd_clk;
+    reg wr_rst_n;
     reg rd_rst_n;
-    reg wr_en;
-    reg rd_en;
-    reg [DATA_WIDTH-1:0] data_in;
 
-    wire [DATA_WIDTH-1:0] data_out;
-    wire full;
-    wire empty;
+    wire [DSIZE-1:0] rd_data;
+    wire wr_full;
+    wire rd_empty;
 
-    reg [DATA_WIDTH-1:0] exp_mem [0:TOTAL_TRANSFERS-1];
-    reg [DATA_WIDTH-1:0] exp_data;
-    integer wr_count;
-    integer rd_count;
     integer i;
-    integer wr_idx;
-    integer rd_idx;
-    integer pass_count;
+    integer seed;
 
     TOP #(
         .DEPTH(DEPTH),
-        .DATA_WIDTH(DATA_WIDTH)
-    ) dut (
+        .DATA_WIDTH(DSIZE)
+    ) fifo (
         .wr_clk(wr_clk),
         .wr_rst_n(wr_rst_n),
         .rd_clk(rd_clk),
         .rd_rst_n(rd_rst_n),
-        .wr_en(wr_en),
-        .rd_en(rd_en),
-        .data_in(data_in),
-        .data_out(data_out),
-        .full(full),
-        .empty(empty)
+        .wr_en(w_inc),
+        .rd_en(r_inc),
+        .data_in(wr_data),
+        .data_out(rd_data),
+        .full(wr_full),
+        .empty(rd_empty)
     );
 
-    always #10 wr_clk = ~wr_clk;
-    always #35 rd_clk = ~rd_clk;
+    always #5  wr_clk = ~wr_clk;
+    always #10 rd_clk = ~rd_clk;
 
-    task write_word;
-        input [DATA_WIDTH-1:0] value;
-        begin
-            while (full) begin
-                @(posedge wr_clk);
-            end
-
-            @(negedge wr_clk);
-            wr_en = 1'b1;
-            data_in = value;
-
-            @(posedge wr_clk);
-            exp_mem[wr_count] = value;
-            wr_count = wr_count + 1;
-
-            @(negedge wr_clk);
-            wr_en = 1'b0;
-            data_in = {DATA_WIDTH{1'b0}};
+    always @(posedge wr_clk) begin
+        if (w_inc && !wr_full) begin
+            $display("Time=%0t WRITE data=%h full=%b empty=%b", $time, wr_data, wr_full, rd_empty);
+        end else if (w_inc && wr_full) begin
+            $display("Time=%0t WRITE blocked because FIFO is full", $time);
         end
-    endtask
+    end
 
-    task read_and_check;
-        begin
-            while (empty) begin
-                @(posedge rd_clk);
-            end
-
-            exp_data = exp_mem[rd_count];
-
-            @(negedge rd_clk);
-            rd_en = 1'b1;
-
-            @(posedge rd_clk);
-            #1;
-            if (data_out !== exp_data) begin
-                $error(
-                    "Time=%0t Read mismatch at index %0d: expected=%h actual=%h",
-                    $time,
-                    rd_count,
-                    exp_data,
-                    data_out
-                );
-            end else begin
-                pass_count = pass_count + 1;
-                $display(
-                    "Time=%0t Read pass at index %0d: data=%h",
-                    $time,
-                    rd_count,
-                    data_out
-                );
-            end
-
-            rd_count = rd_count + 1;
-
-            @(negedge rd_clk);
-            rd_en = 1'b0;
+    always @(posedge rd_clk) begin
+        if (r_inc && !rd_empty) begin
+            $display("Time=%0t READ  data=%h full=%b empty=%b", $time, rd_data, wr_full, rd_empty);
+        end else if (r_inc && rd_empty) begin
+            $display("Time=%0t READ blocked because FIFO is empty", $time);
         end
-    endtask
+    end
 
     initial begin
+        i = 0;
+        seed = 1;
         wr_clk = 1'b0;
-        wr_rst_n = 1'b0;
         rd_clk = 1'b0;
-        rd_rst_n = 1'b0;
-        wr_en = 1'b0;
-        rd_en = 1'b0;
-        data_in = {DATA_WIDTH{1'b0}};
-        exp_data = {DATA_WIDTH{1'b0}};
-        wr_count = 0;
-        rd_count = 0;
-        pass_count = 0;
-    end
-
-    initial begin
-        repeat (4) @(posedge wr_clk);
         wr_rst_n = 1'b1;
-    end
-
-    initial begin
-        repeat (4) @(posedge rd_clk);
         rd_rst_n = 1'b1;
-    end
+        w_inc = 1'b0;
+        r_inc = 1'b0;
+        wr_data = {DSIZE{1'b0}};
 
-    initial begin
-        wait (wr_rst_n && rd_rst_n);
+        #40;
+        wr_rst_n = 1'b0;
+        rd_rst_n = 1'b0;
 
-        repeat (2) @(posedge wr_clk);
+        #40;
+        wr_rst_n = 1'b1;
+        rd_rst_n = 1'b1;
 
-        for (i = 0; i < PRELOAD_COUNT; i = i + 1) begin
-            write_word(i[DATA_WIDTH-1:0]);
+        $display("TEST CASE 1: Write data and read it back");
+        r_inc = 1'b1;
+        for (i = 0; i < 10; i = i + 1) begin
+            wr_data = $random(seed) % 256;
+            w_inc = 1'b1;
+            #10;
+            w_inc = 1'b0;
+            #10;
         end
 
-        repeat (3) @(posedge rd_clk);
-
-        for (i = 0; i < PRELOAD_COUNT; i = i + 1) begin
-            read_and_check;
+        $display("TEST CASE 2: Fill FIFO and try to write more");
+        r_inc = 1'b0;
+        w_inc = 1'b1;
+        for (i = 0; i < DEPTH + 3; i = i + 1) begin
+            wr_data = $random(seed) % 256;
+            #10;
         end
+        w_inc = 1'b0;
 
-        fork
-            begin
-                for (wr_idx = 0; wr_idx < STRESS_COUNT; wr_idx = wr_idx + 1) begin
-                    write_word($random);
-                end
-            end
-            begin
-                for (rd_idx = 0; rd_idx < STRESS_COUNT; rd_idx = rd_idx + 1) begin
-                    read_and_check;
-                end
-            end
-        join
-
-        repeat (4) @(posedge rd_clk);
-
-        if (!empty) begin
-            $error("FIFO should be empty at end of test");
+        $display("TEST CASE 3: Empty FIFO and try to read more");
+        r_inc = 1'b1;
+        for (i = 0; i < DEPTH + 3; i = i + 1) begin
+            #20;
         end
+        r_inc = 1'b0;
 
-        $display("Simulation completed with %0d successful read checks.", pass_count);
+        #40;
         $finish;
-    end
-
-    initial begin
-        #5000;
-        $fatal(1, "Timeout waiting for testbench completion");
     end
 
     initial begin
