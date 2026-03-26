@@ -11,58 +11,56 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="41.162 ns"></ZoomStartTime>
-      <ZoomEndTime time="163.363 ns"></ZoomEndTime>
-      <Cursor1Time time="39.600 ns"></Cursor1Time>
+      <ZoomStartTime time="599.317 ns"></ZoomStartTime>
+      <ZoomEndTime time="843.918 ns"></ZoomEndTime>
+      <Cursor1Time time="661.517 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="159"></NameColumnWidth>
-      <ValueColumnWidth column_width="155"></ValueColumnWidth>
+      <NameColumnWidth column_width="212"></NameColumnWidth>
+      <ValueColumnWidth column_width="101"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="14" />
-   <wvobject fp_name="/Async_FIFO_tb/wclk" type="logic">
-      <obj_property name="ElementShortName">wclk</obj_property>
-      <obj_property name="ObjectShortName">wclk</obj_property>
+   <WVObjectSize size="22" />
+   <wvobject fp_name="/Async_FIFO_tb/wr_clk" type="logic">
+      <obj_property name="ElementShortName">wr_clk</obj_property>
+      <obj_property name="ObjectShortName">wr_clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/rclk" type="logic">
-      <obj_property name="ElementShortName">rclk</obj_property>
-      <obj_property name="ObjectShortName">rclk</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/rd_clk" type="logic">
+      <obj_property name="ElementShortName">rd_clk</obj_property>
+      <obj_property name="ObjectShortName">rd_clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/wrst_n" type="logic">
-      <obj_property name="ElementShortName">wrst_n</obj_property>
-      <obj_property name="ObjectShortName">wrst_n</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/wr_rst_n" type="logic">
+      <obj_property name="ElementShortName">wr_rst_n</obj_property>
+      <obj_property name="ObjectShortName">wr_rst_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/rrst_n" type="logic">
-      <obj_property name="ElementShortName">rrst_n</obj_property>
-      <obj_property name="ObjectShortName">rrst_n</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/rd_rst_n" type="logic">
+      <obj_property name="ElementShortName">rd_rst_n</obj_property>
+      <obj_property name="ObjectShortName">rd_rst_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/wdata" type="array">
-      <obj_property name="ElementShortName">wdata[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wdata[7:0]</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/wr_data" type="array">
+      <obj_property name="ElementShortName">wr_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_data[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/rdata" type="array">
-      <obj_property name="ElementShortName">rdata[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rdata[7:0]</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/rd_data" type="array">
+      <obj_property name="ElementShortName">rd_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_data[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/winc" type="logic">
-      <obj_property name="ElementShortName">winc</obj_property>
-      <obj_property name="ObjectShortName">winc</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/wr_full" type="logic">
+      <obj_property name="ElementShortName">wr_full</obj_property>
+      <obj_property name="ObjectShortName">wr_full</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/rinc" type="logic">
-      <obj_property name="ElementShortName">rinc</obj_property>
-      <obj_property name="ObjectShortName">rinc</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/rd_empty" type="logic">
+      <obj_property name="ElementShortName">rd_empty</obj_property>
+      <obj_property name="ObjectShortName">rd_empty</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/wfull" type="logic">
-      <obj_property name="ElementShortName">wfull</obj_property>
-      <obj_property name="ObjectShortName">wfull</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/w_inc" type="logic">
+      <obj_property name="ElementShortName">w_inc</obj_property>
+      <obj_property name="ObjectShortName">w_inc</obj_property>
    </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/rempty" type="logic">
-      <obj_property name="ElementShortName">rempty</obj_property>
-      <obj_property name="ObjectShortName">rempty</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Async_FIFO_tb/i" type="array">
-      <obj_property name="ElementShortName">i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   <wvobject fp_name="/Async_FIFO_tb/r_inc" type="logic">
+      <obj_property name="ElementShortName">r_inc</obj_property>
+      <obj_property name="ObjectShortName">r_inc</obj_property>
    </wvobject>
    <wvobject fp_name="/Async_FIFO_tb/seed" type="array">
       <obj_property name="ElementShortName">seed[31:0]</obj_property>
@@ -75,5 +73,131 @@
    <wvobject fp_name="/Async_FIFO_tb/DEPTH" type="array">
       <obj_property name="ElementShortName">DEPTH[31:0]</obj_property>
       <obj_property name="ObjectShortName">DEPTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo" type="array">
+      <obj_property name="ElementShortName">fifo[0:15][7:0]</obj_property>
+      <obj_property name="ObjectShortName">fifo[0:15][7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[0]" type="array">
+         <obj_property name="ElementShortName">[0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[1]" type="array">
+         <obj_property name="ElementShortName">[1][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[2]" type="array">
+         <obj_property name="ElementShortName">[2][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[3]" type="array">
+         <obj_property name="ElementShortName">[3][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[4]" type="array">
+         <obj_property name="ElementShortName">[4][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[4][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[5]" type="array">
+         <obj_property name="ElementShortName">[5][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[5][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[6]" type="array">
+         <obj_property name="ElementShortName">[6][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[6][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[7]" type="array">
+         <obj_property name="ElementShortName">[7][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[7][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[8]" type="array">
+         <obj_property name="ElementShortName">[8][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[8][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[9]" type="array">
+         <obj_property name="ElementShortName">[9][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[9][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[10]" type="array">
+         <obj_property name="ElementShortName">[10][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[10][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[11]" type="array">
+         <obj_property name="ElementShortName">[11][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[11][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[12]" type="array">
+         <obj_property name="ElementShortName">[12][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[12][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[13]" type="array">
+         <obj_property name="ElementShortName">[13][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[13][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[14]" type="array">
+         <obj_property name="ElementShortName">[14][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[14][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/fifo[15]" type="array">
+         <obj_property name="ElementShortName">[15][7:0]</obj_property>
+         <obj_property name="ObjectShortName">[15][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/wptr_full_inst/g_wptr_next" type="array">
+      <obj_property name="ElementShortName">g_wptr_next[4:0]</obj_property>
+      <obj_property name="ObjectShortName">g_wptr_next[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/wptr_full_inst/g_wptr" type="array">
+      <obj_property name="ElementShortName">g_wptr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">g_wptr[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/b_wptr" type="array">
+      <obj_property name="ElementShortName">b_wptr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">b_wptr[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/fifo_mem_inst/b_rptr" type="array">
+      <obj_property name="ElementShortName">b_rptr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">b_rptr[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/wptr_full_inst/g_rptr_sync" type="array">
+      <obj_property name="ElementShortName">g_rptr_sync[4:0]</obj_property>
+      <obj_property name="ObjectShortName">g_rptr_sync[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/rptr_empty_inst/g_rptr_next" type="array">
+      <obj_property name="ElementShortName">g_rptr_next[4:0]</obj_property>
+      <obj_property name="ObjectShortName">g_rptr_next[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Async_FIFO_tb/fifo/rptr_empty_inst/g_wptr_sync" type="array">
+      <obj_property name="ElementShortName">g_wptr_sync[4:0]</obj_property>
+      <obj_property name="ObjectShortName">g_wptr_sync[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
 </wave_config>

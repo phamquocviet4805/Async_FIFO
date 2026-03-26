@@ -9,13 +9,17 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description:
+// Storage array for the asynchronous FIFO. The write side updates memory on
+// `wr_clk`, and the read side exposes the selected entry from the read pointer.
 // 
 // Dependencies: 
 // 
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
+// Only the lower pointer bits address the RAM. The extra MSB in each pointer
+// is used by the full/empty logic to track wrap-around.
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -37,12 +41,14 @@ module fifo_mem #(
     output [DATA_WIDTH-1:0] data_out
     );
     
-    localparam ADD_SIZE = PTR_WIDTH - 1; 
+    localparam ADD_SIZE = PTR_WIDTH - 1;
 
+    // FIFO storage depth is indexed by the binary address bits only.
     reg [DATA_WIDTH-1:0] fifo [0:DEPTH-1];
     
     always @(posedge wr_clk) begin
         if (wr_en && !full) begin
+            // Write new data into the slot selected by the current write pointer.
             fifo[b_wptr[ADD_SIZE-1:0]] <= data_in;
         end
     end
@@ -52,7 +58,7 @@ module fifo_mem #(
 //            data_out <= fifo[b_rptr[PTR_WIDTH-1:0]];
 //        end
 //    end
-
+    // The current design uses a combinational read path from the selected slot.
     assign data_out = fifo[b_rptr[ADD_SIZE-1:0]];
 
 endmodule

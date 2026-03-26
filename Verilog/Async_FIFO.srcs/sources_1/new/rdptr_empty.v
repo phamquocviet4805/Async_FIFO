@@ -9,13 +9,17 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description:
+// Read-pointer control for the asynchronous FIFO. This module advances the
+// read pointer and generates the `empty` flag in the read clock domain.
 // 
 // Dependencies: 
 // 
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
+// The module keeps both binary and Gray-coded read pointers. Empty is detected
+// by comparing the next Gray read pointer against the synchronized write pointer.
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -36,8 +40,11 @@ module rdptr_empty #(parameter PTR_WIDTH = 5)(
     wire [PTR_WIDTH-1:0] g_rptr_next;
     wire rd_empty;
 
+    // Advance only when a read is requested and the FIFO is not empty.
     assign b_rptr_next = b_rptr + (rd_en && !empty);
+    // Convert the next binary pointer into Gray code for CDC-safe comparison.
     assign g_rptr_next = (b_rptr_next >> 1) ^ b_rptr_next;
+    // FIFO is empty when the next read pointer catches the synchronized write pointer.
     assign rd_empty = (g_wptr_sync == g_rptr_next);
 
     always @(posedge rd_clk or negedge rd_rst_n) begin
@@ -45,6 +52,7 @@ module rdptr_empty #(parameter PTR_WIDTH = 5)(
             b_rptr <= 0;
             g_rptr <= 0;
         end else begin
+            // Update both pointer forms together each read clock.
             b_rptr <= b_rptr_next;
             g_rptr <= g_rptr_next;
         end
@@ -54,6 +62,7 @@ module rdptr_empty #(parameter PTR_WIDTH = 5)(
         if (!rd_rst_n) begin
             empty <= 1;
         end else begin
+            // Register the empty flag to keep it aligned with read-domain timing.
             empty <= rd_empty;
         end
     end

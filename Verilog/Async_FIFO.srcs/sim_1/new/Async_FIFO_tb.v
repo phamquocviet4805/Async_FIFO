@@ -10,12 +10,15 @@
 // Target Devices:
 // Tool Versions:
 // Description:
+// Basic behavioral testbench for the asynchronous FIFO. It applies reset,
+// performs write/read traffic, and exercises full and empty corner cases.
 //
 // Dependencies:
 //
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
+// The two clocks run at different rates to mimic asynchronous operation.
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -56,6 +59,7 @@ module Async_FIFO_tb;
         .empty(rd_empty)
     );
 
+    // Write clock is faster than read clock in this testbench.
     always #5  wr_clk = ~wr_clk;
     always #10 rd_clk = ~rd_clk;
 
@@ -76,6 +80,7 @@ module Async_FIFO_tb;
     end
 
     initial begin
+        // Initialize signals before pulsing the active-low resets.
         i = 0;
         seed = 1;
         wr_clk = 1'b0;
@@ -94,6 +99,7 @@ module Async_FIFO_tb;
         wr_rst_n = 1'b1;
         rd_rst_n = 1'b1;
 
+        // Write while read is enabled to show normal FIFO flow.
         $display("TEST CASE 1: Write data and read it back");
         r_inc = 1'b1;
         for (i = 0; i < 10; i = i + 1) begin
@@ -104,6 +110,7 @@ module Async_FIFO_tb;
             #10;
         end
 
+        // Continue writing past capacity and observe the full protection.
         $display("TEST CASE 2: Fill FIFO and try to write more");
         r_inc = 1'b0;
         w_inc = 1'b1;
@@ -113,6 +120,7 @@ module Async_FIFO_tb;
         end
         w_inc = 1'b0;
 
+        // Read past the remaining contents and observe the empty protection.
         $display("TEST CASE 3: Empty FIFO and try to read more");
         r_inc = 1'b1;
         for (i = 0; i < DEPTH + 3; i = i + 1) begin
@@ -124,9 +132,9 @@ module Async_FIFO_tb;
         $finish;
     end
 
-    initial begin
-        $dumpfile("dump.vcd");
-        $dumpvars(0, Async_FIFO_tb);
-    end
+//    initial begin
+//        $dumpfile("dump.vcd");
+//        $dumpvars(0, Async_FIFO_tb);
+//    end
 
 endmodule

@@ -9,13 +9,17 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description:
+// Top-level asynchronous FIFO wrapper that connects pointer synchronization,
+// status generation, and the storage array across separate read/write clocks.
 // 
 // Dependencies: 
 // 
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
+// Gray-coded pointers are synchronized into the opposite clock domain before
+// they are used for full or empty detection.
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -36,6 +40,7 @@ module TOP #(
     output empty
     );
 
+    // One extra pointer bit is used to distinguish wrap-around.
     localparam PTR_WIDTH = $clog2(DEPTH) + 1;
 
     wire [PTR_WIDTH-1:0] g_wptr_sync;
@@ -45,6 +50,7 @@ module TOP #(
     wire [PTR_WIDTH-1:0] g_wptr;
     wire [PTR_WIDTH-1:0] g_rptr;
 
+    // Synchronize the write pointer into the read clock domain.
     sync #(PTR_WIDTH) sync_wptr_inst (
         .data_out(g_wptr_sync),
         .data_in(g_wptr),
@@ -52,6 +58,7 @@ module TOP #(
         .rst_n(rd_rst_n)
     );
 
+    // Synchronize the read pointer into the write clock domain.
     sync #(PTR_WIDTH) sync_rptr_inst (
         .data_out(g_rptr_sync),
         .data_in(g_rptr),
@@ -59,6 +66,7 @@ module TOP #(
         .rst_n(wr_rst_n)
     );
 
+    // Generate the write-side pointer and full status.
     wrptr_full #(PTR_WIDTH) wptr_full_inst (
         .wr_clk(wr_clk),
         .wr_rst_n(wr_rst_n),
@@ -69,6 +77,7 @@ module TOP #(
         .b_wptr(b_wptr)
     );
 
+    // Generate the read-side pointer and empty status.
     rdptr_empty #(PTR_WIDTH) rptr_empty_inst (
         .rd_clk(rd_clk),
         .rd_rst_n(rd_rst_n),
@@ -79,6 +88,7 @@ module TOP #(
         .b_rptr(b_rptr)
     );
 
+    // Memory is addressed with the binary pointers from each side.
     fifo_mem #(
         .DEPTH(DEPTH),
         .DATA_WIDTH(DATA_WIDTH),

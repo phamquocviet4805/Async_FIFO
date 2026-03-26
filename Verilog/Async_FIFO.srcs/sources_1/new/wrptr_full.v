@@ -9,13 +9,17 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description:
+// Write-pointer control for the asynchronous FIFO. This module advances the
+// write pointer and generates the `full` flag in the write clock domain.
 // 
 // Dependencies: 
 // 
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
+// The module keeps both binary and Gray-coded write pointers. Gray code is
+// compared against the synchronized read pointer to detect a full condition.
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -32,14 +36,18 @@ module wrptr_full #(
     output reg [PTR_WIDTH-1:0] b_wptr
     );
     
-    localparam ADD_SIZE = PTR_WIDTH - 1; 
+    localparam ADD_SIZE = PTR_WIDTH - 1;
 
     wire [PTR_WIDTH-1:0] b_wptr_next;
     wire [PTR_WIDTH-1:0] g_wptr_next;
     wire wr_full;
 
+    // Advance only when a write is requested and the FIFO is not full.
     assign b_wptr_next = b_wptr + (wr_en && !full);
+    // Convert the next binary pointer into Gray code for CDC-safe comparison.
     assign g_wptr_next = (b_wptr_next >> 1) ^ b_wptr_next;
+    // FIFO becomes full when the next write pointer reaches the read pointer
+    // with the wrap bits inverted.
     assign wr_full = (
         g_wptr_next == {~g_rptr_sync[ADD_SIZE:ADD_SIZE-1], g_rptr_sync[ADD_SIZE-2:0]}
     );
@@ -49,6 +57,7 @@ module wrptr_full #(
             b_wptr <= 0;
             g_wptr <= 0;
         end else begin
+            // Update both pointer forms together each write clock.
             b_wptr <= b_wptr_next;
             g_wptr <= g_wptr_next;
         end
@@ -58,6 +67,7 @@ module wrptr_full #(
         if (!wr_rst_n) begin
             full <= 1'b0;
         end else begin
+            // Register the full flag to keep it aligned with write-domain timing.
             full <= wr_full;
         end
     end
