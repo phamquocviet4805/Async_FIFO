@@ -92,20 +92,9 @@ The simulation TCL script runs the design for `1000 ns`.
 ### Option 1: Vivado GUI
 
 1. Open `Async_FIFO.xpr` in Vivado 2022.2.
-2. Select the simulation source set containing `Async_FIFO_tb.v`.
+2. Select the project.
 3. Run Behavioral Simulation.
 4. Vivado can open the saved waveform configuration from `Async_FIFO_tb_behav.wcfg`.
-
-### Option 2: Generated XSim scripts
-
-Make sure Vivado tools are available in your terminal environment, then run:
-
-```bat
-cd Async_FIFO.sim\sim_1\behav\xsim
-compile.bat
-elaborate.bat
-simulate.bat
-```
 
 ## Notes
 
